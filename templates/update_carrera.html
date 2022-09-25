@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        
+    {% endfor %}
+    
+<h2>Actualizar carrera</h2>
+{% if nombre %}
+        <h1>User update!</h1>
+        {% for our_carreras in our_carreras %}
+            {{  our_carreras.codigoCarrera }}. {{ our_carreras.nombre }}-{{ our_carreras.duracion }} <br>
+        {% endfor %}
+        <br>
+    {% else %}
+        <h1>Carrera update...</h1>
+        <br/>
+        <div class="shadow p-3 mb-5 bg-body rounded">
+        <form action="/carrera/update/{{  name_update.codigoCarrera }}" method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.nombre.label(class="form-label") }}
+            {{ form.nombre(class="form-control", value=name_update.nombre) }}
+            <br/>
+            {{ form.duracion.label(class="form-label") }}
+            {{ form.duracion(class="form-control", value=name_update.duracion) }}
+            <br/>
+            {{ form.submit(class="btn btn-primary") }}
+            <a class="btn btn-danger" href="{{ url_for('add_carrera') }}">Cancel</a>
+        </form>
+        </div>
+        <br>
+    {% endif %}
+
+{% endblock %}

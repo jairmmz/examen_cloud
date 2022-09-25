@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        
+    {% endfor %}
+    
+<h2>add carrera</h2>
+
+<div class="shadow p-3 mb-5 bg-body rounded">
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.nombre.label(class="form-label") }}
+        {{ form.nombre(class="form-control") }}
+        <br/>
+        {{ form.duracion.label(class="form-label") }}
+        {{ form.duracion(class="form-control") }}
+        <br/>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+
+<br>
+
+<h2>User List</h2>
+<table id="data" class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Duración</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for our_carreras in our_carreras %}
+        <tr>
+            <td>{{ our_carreras.codigoCarrera }}</td>
+            <td>{{ our_carreras.nombre }}</td>
+            <td>{{ our_carreras.duracion }}</td>
+            <td>
+                <a class="btn btn-primary" href="{{ url_for('update_carrera', codigoCarrera = our_carreras.codigoCarrera) }}">Update</a>
+                <a class="btn btn-danger" href="{{ url_for('delete_carrera', codigoCarrera = our_carreras.codigoCarrera) }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+
+{% endblock %}
